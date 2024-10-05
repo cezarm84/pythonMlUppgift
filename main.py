@@ -6,7 +6,7 @@ from datetime import timedelta
 app = Flask(__name__)
 
 # JWT Configuration
-app.config["JWT_SECRET_KEY"] = "ed1d715c9f4d4470a2d3aa282bf40c42"# uuid
+app.config["JWT_SECRET_KEY"] = "key , har använt uuid för att hämta"# uuid
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=30)
 jwt = JWTManager(app)
 
@@ -14,7 +14,7 @@ jwt = JWTManager(app)
 model = joblib.load('random_forest_model.pkl')
 scaler = joblib.load('scaler.pkl')
 
-# Dummy user credentials for login
+# Dummy user 
 users = {
     "user@example.com": "password123"
 }
