@@ -1,0 +1,55 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, classification_report
+import joblib
+
+# Load dataset
+train_data = pd.read_csv('train.csv')
+
+# Separate features and target variable
+X = train_data.drop(columns='price_range')
+y = train_data['price_range']
+
+# Split data into training and validation s (80% training, 20% validation)
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#  StandardScaler
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_val_scaled = scaler.transform(X_val)
+
+# Initialize
+rf_model = RandomForestClassifier(random_state=42)
+svm_model = SVC(random_state=42)
+
+# Train the Random Forest Classifier
+rf_model.fit(X_train_scaled, y_train)
+
+# Train the Support Vector Machine model
+svm_model.fit(X_train_scaled, y_train)
+
+# Make predictions
+rf_predictions = rf_model.predict(X_val_scaled)
+svm_predictions = svm_model.predict(X_val_scaled)
+
+# Evaluate the models using accuracy and classification report
+rf_accuracy = accuracy_score(y_val, rf_predictions)
+svm_accuracy = accuracy_score(y_val, svm_predictions)
+
+rf_report = classification_report(y_val, rf_predictions)
+svm_report = classification_report(y_val, svm_predictions)
+
+# Display the results
+print("Random Forest Accuracy:", rf_accuracy)
+print("Random Forest Classification Report:\n", rf_report)
+
+print("SVM Accuracy:", svm_accuracy)
+print("SVM Classification Report:\n", svm_report)
+
+
+# Save as fil
+joblib.dump(rf_model, 'random_forest_model.pkl')
+joblib.dump(scaler, 'scaler.pkl')
