@@ -22,9 +22,9 @@ json
 {
     "access_token": "access_token"
 }
+
 2. predict:
 Gör en POST-begäran till /predict endpointen.
-
 Begäran:
 
 URL: http://127.0.0.1:5000/predict
@@ -44,7 +44,6 @@ Exempel på body:
 Svar:
 
 Om man lyckas får man:
-
 json
 {
     "prediction": 1,
@@ -59,9 +58,7 @@ URL: http://127.0.0.1:5000/
 Metod: GET
 
 Svar:
-
 Du får svaret:
-
 json
 {
     "message": "API is running"
